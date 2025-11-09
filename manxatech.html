@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ManxaTech LLC · Python Automation for Compliance</title>
+  <meta name="description" content="Secure Python automations that reduce compliance workload and errors for enterprise and DoD adjacent teams." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0a0f1c; --surface:#10182a; --card:#0f1526; --text:#eef2ff; --muted:#9fb0d0;
+      --accent:#5b9cff; --accent2:#20d4a3; --border:#1d2640; --radius:14px; --max:1120px;
+      --pad-xl:84px; --pad-lg:56px; --pad-md:28px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text); background:var(--bg);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:0 24px}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(1.2) blur(8px);
+      background:color-mix(in srgb, var(--bg) 78%, transparent);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; height:64px}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{width:32px; height:32px; border-radius:10px; background:linear-gradient(135deg,var(--accent),var(--accent2))}
+    nav{display:flex; gap:20px}
+    nav a{color:var(--muted); font-size:14px}
+    nav a:hover{color:var(--text)}
+
+    /* Hero */
+    .hero{
+      padding:var(--pad-xl) 0 var(--pad-lg);
+      display:grid; gap:32px; align-items:center;
+      grid-template-columns:1.15fr .85fr;
+    }
+    .eyebrow{font-size:13px; color:#cfe1ff; letter-spacing:.06em; text-transform:uppercase}
+    h1{font-size:48px; line-height:1.1; margin:10px 0 16px; letter-spacing:-.01em}
+    .lead{font-size:18px; color:var(--muted); max-width:60ch}
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:20px}
+    .btn{padding:12px 16px; border-radius:12px; border:1px solid var(--border); background:#0f1730; font-weight:600}
+    .btn.primary{background:var(--accent); border-color:var(--accent); color:white}
+    .subtle{color:var(--muted); font-size:14px; margin-top:12px}
+
+    /* Hero image card */
+    .hero-card{
+      position:relative; border:1px solid var(--border); border-radius:18px; overflow:hidden;
+      background:radial-gradient(120% 120% at 100% 0%, #1a2540 0%, #0e1730 60%, #0a0f1c 100%);
+      min-height:300px;
+      box-shadow:0 12px 40px rgba(0,0,0,.35);
+    }
+    /* Decorative hero SVG grid */
+    .hero-art{
+      position:absolute; inset:0; pointer-events:none; opacity:.9;
+      background-image:
+        radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--accent) 45%, transparent) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, color-mix(in srgb, var(--accent2) 45%, transparent) 0%, transparent 50%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.5), transparent);
+    }
+    .hero-grid{
+      position:absolute; inset:0; opacity:.28;
+      background:
+        linear-gradient(to right, #ffffff10 1px, transparent 1px) 0 0 / 44px 44px,
+        linear-gradient(to bottom, #ffffff10 1px, transparent 1px) 0 0 / 44px 44px;
+    }
+    .hero-pane{
+      position:absolute; left:24px; right:24px; bottom:24px;
+      display:grid; gap:10px; grid-template-columns:repeat(3,1fr);
+    }
+    .pane{
+      background:color-mix(in srgb, var(--surface) 70%, transparent);
+      border:1px solid var(--border); border-radius:12px; padding:12px;
+      font-size:13px; color:#cfe1ff;
+    }
+    .kpi{font-size:20px; font-weight:700; color:#ffffff}
+
+    /* Sections */
+    section{padding:var(--pad-lg) 0}
+    .section-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:18px}
+    h2{font-size:30px; margin:0}
+    .section-desc{color:var(--muted); max-width:65ch}
+    .grid{display:grid; gap:16px}
+    .cols-3{grid-template-columns:repeat(3,1fr)}
+    .cols-4{grid-template-columns:repeat(4,1fr)}
+    .card{
+      background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:18px;
+    }
+    .divider{height:1px; background:linear-gradient(to right, transparent, var(--border), transparent); margin:var(--pad-lg) 0}
+    ul{margin:8px 0 0; padding-left:18px; color:var(--muted)}
+    .muted{color:var(--muted)}
+
+    /* Contact */
+    .contact{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
+
+    /* Footer */
+    footer{padding:var(--pad-md) 0 var(--pad-xl); color:var(--muted); font-size:13px; border-top:1px solid var(--border); margin-top:var(--pad-lg)}
+
+    /* Responsive */
+    @media(max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .cols-3,.cols-4{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="/">
+        <div class="logo" aria-hidden="true"></div>
+        <strong>ManxaTech</strong>
+      </a>
+      <nav>
+        <a href="#offerings">Offerings</a>
+        <a href="#packages">Packages</a>
+        <a href="#process">Process</a>
+        <a href="#security">Security</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero container" aria-labelledby="hero-title">
+      <div>
+        <div class="eyebrow">Python automation for enterprise and DoD adjacent teams</div>
+        <h1 id="hero-title">Automate compliance and reporting. Reduce risk. Ship on schedule.</h1>
+        <p class="lead">We build secure, reliable Python automations that pull, validate, and transform your data into audit ready packets and dashboards.</p>
+        <div class="cta">
+          <a class="btn primary" href="mailto:contact@manxatech.com?subject=Discovery%20Call">Book a 20 minute call</a>
+          <a class="btn" href="#packages">See packages</a>
+        </div>
+        <p class="subtle">Typical result: 60 to 90 percent less manual work on recurring reports</p>
+      </div>
+
+      <!-- Hero visual -->
+      <aside class="hero-card" aria-label="Automation overview">
+        <div class="hero-grid"></div>
+        <div class="hero-art"></div>
+        <div class="hero-pane">
+          <div class="pane"><div class="kpi">−78%</div><div>Prep time</div></div>
+          <div class="pane"><div class="kpi">0</div><div>Manual merges</div></div>
+          <div class="pane"><div class="kpi">24×7</div><div>Scheduled runs</div></div>
+        </div>
+      </aside>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- OFFERINGS -->
+    <section id="offerings" class="container" aria-labelledby="offerings-title">
+      <div class="section-head">
+        <h2 id="offerings-title">Offerings</h2>
+        <p class="section-desc">Pick a focused outcome. We deliver and document it so your audits pass cleanly.</p>
+      </div>
+      <div class="grid cols-3">
+        <div class="card">
+          <strong>Compliance packet automation</strong>
+          <p class="muted">CSV, PDF, and dashboard exports on schedule with validation and logs.</p>
+        </div>
+        <div class="card">
+          <strong>Secure ETL pipelines</strong>
+          <p class="muted">Connectors, schema mapping, field level checks, SLA backed runs.</p>
+        </div>
+        <div class="card">
+          <strong>AI assisted reporting</strong>
+          <p class="muted">Policy aware assistants for internal documentation and review.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- PACKAGES -->
+    <section id="packages" class="container" aria-labelledby="packages-title">
+      <div class="section-head">
+        <h2 id="packages-title">Packages</h2>
+        <p class="section-desc">Simple pricing that maps to your scope. All include a runbook and handover.</p>
+      </div>
+      <div class="grid cols-3">
+        <div class="card">
+          <strong>Quickstart</strong><br>$5,000 setup + $1,000 monthly
+          <ul>
+            <li>One automated report</li>
+            <li>Validation and logs</li>
+            <li>Runbook and handover</li>
+          </ul>
+        </div>
+        <div class="card">
+          <strong>Standard</strong><br>$9,000 setup + $2,000 monthly
+          <ul>
+            <li>Two pipelines</li>
+            <li>Dashboard</li>
+            <li>SLAs and support</li>
+          </ul>
+        </div>
+        <div class="card">
+          <strong>Enterprise</strong><br>$15,000 setup + $3,000 monthly
+          <ul>
+            <li>Four pipelines</li>
+            <li>SSO integration</li>
+            <li>Enhanced controls</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- PROCESS -->
+    <section id="process" class="container" aria-labelledby="process-title">
+      <div class="section-head">
+        <h2 id="process-title">Process</h2>
+        <p class="section-desc">A short path from idea to running automation with clear stages and sign offs.</p>
+      </div>
+      <div class="grid cols-4">
+        <div class="card"><strong>1. Discovery</strong><br>Scope systems, data, and constraints.</div>
+        <div class="card"><strong>2. Pilot</strong><br>Build one working automation.</div>
+        <div class="card"><strong>3. Validate</strong><br>Tests, sign off, and runbook.</div>
+        <div class="card"><strong>4. Operate</strong><br>Monitored runs with SLAs and support.</div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECURITY -->
+    <section id="security" class="container" aria-labelledby="security-title">
+      <div class="section-head">
+        <h2 id="security-title">Security</h2>
+        <p class="section-desc">Controls that match enterprise expectations from day one.</p>
+      </div>
+      <div class="grid cols-4">
+        <div class="card">Least privilege access</div>
+        <div class="card">Encrypted secrets and rotation</div>
+        <div class="card">Code reviews and audit logs</div>
+        <div class="card">On prem or cloud deployment</div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CONTACT -->
+    <section id="contact" class="container" aria-labelledby="contact-title">
+      <div class="section-head">
+        <h2 id="contact-title">Contact</h2>
+        <p class="section-desc">Send a message or book a quick discovery call.</p>
+      </div>
+      <div class="contact">
+        <a class="btn primary" href="mailto:contact@manxatech.com?subject=Discovery%20Call">Email contact@manxatech.com</a>
+        <a class="btn" href="https://cal.com/" rel="noopener">Schedule a call</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> ManxaTech LLC. All rights reserved.</div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
